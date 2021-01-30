@@ -15,7 +15,7 @@ public class Reservation {
     private String roomId;
 
     @Column(name = "GUEST_ID")
-    private String guestId;
+    private Long guestId;
 
     @Column(name = "RES_DATE")
     private String reservationDate;
@@ -36,11 +36,11 @@ public class Reservation {
         this.roomId = roomId;
     }
 
-    public String getGuestId() {
+    public Long getGuestId() {
         return guestId;
     }
 
-    public void setGuestId(String guestId) {
+    public void setGuestId(Long guestId) {
         this.guestId = guestId;
     }
 
