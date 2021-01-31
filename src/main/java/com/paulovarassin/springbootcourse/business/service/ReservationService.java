@@ -7,14 +7,17 @@ import com.paulovarassin.springbootcourse.data.entity.Room;
 import com.paulovarassin.springbootcourse.data.repository.GuestRepository;
 import com.paulovarassin.springbootcourse.data.repository.ReservationRepository;
 import com.paulovarassin.springbootcourse.data.repository.RoomRepository;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-
 @Service
 public class ReservationService {
-
     private final RoomRepository roomRepository;
     private final GuestRepository guestRepository;
     private final ReservationRepository reservationRepository;
@@ -26,9 +29,9 @@ public class ReservationService {
         this.reservationRepository = reservationRepository;
     }
 
-    public List<RoomReservation> getRoomReservationForDate(Date date) {
+    public List<RoomReservation> getRoomReservationsForDate(Date date){
         Iterable<Room> rooms = this.roomRepository.findAll();
-        Map<Long, RoomReservation> roomReservationMap = new HashMap<>();
+        Map<Long, RoomReservation> roomReservationMap = new HashMap();
         rooms.forEach(room -> {
             RoomReservation roomReservation = new RoomReservation();
             roomReservation.setRoomId(room.getRoomId());
@@ -36,7 +39,7 @@ public class ReservationService {
             roomReservation.setRoomNumber(room.getRoomNumber());
             roomReservationMap.put(room.getRoomId(), roomReservation);
         });
-        Iterable<Reservation> reservations = reservationRepository
+        Iterable<Reservation> reservations = this.reservationRepository
                 .findReservationByReservationDate(new java.sql.Date(date.getTime()));
         reservations.forEach(reservation -> {
             RoomReservation roomReservation = roomReservationMap.get(reservation.getRoomId());
@@ -47,10 +50,9 @@ public class ReservationService {
             roomReservation.setGuestId(guest.getGuestId());
         });
         List<RoomReservation> roomReservations = new ArrayList<>();
-        for(Long id: roomReservationMap.keySet()) {
+        for(Long id: roomReservationMap.keySet()){
             roomReservations.add(roomReservationMap.get(id));
         }
         return roomReservations;
     }
-
 }

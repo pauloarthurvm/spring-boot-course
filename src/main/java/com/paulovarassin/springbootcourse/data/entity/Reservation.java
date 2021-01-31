@@ -1,6 +1,7 @@
 package com.paulovarassin.springbootcourse.data.entity;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
 @Table(name = "RESERVATION")
@@ -18,7 +19,7 @@ public class Reservation {
     private Long guestId;
 
     @Column(name = "RES_DATE")
-    private String reservationDate;
+    private Date reservationDate;
 
     public Long getReservationId() {
         return reservationId;
@@ -44,11 +45,11 @@ public class Reservation {
         this.guestId = guestId;
     }
 
-    public String getReservationDate() {
+    public Date getReservationDate() {
         return reservationDate;
     }
 
-    public void setReservationDate(String reservationDate) {
+    public void setReservationDate(Date reservationDate) {
         this.reservationDate = reservationDate;
     }
 }
