@@ -13,7 +13,7 @@ public class Reservation {
     private Long reservationId;
 
     @Column(name = "ROOM_ID")
-    private String roomId;
+    private Long roomId;
 
     @Column(name = "GUEST_ID")
     private Long guestId;
@@ -29,11 +29,11 @@ public class Reservation {
         this.reservationId = reservationId;
     }
 
-    public String getRoomId() {
+    public Long getRoomId() {
         return roomId;
     }
 
-    public void setRoomId(String roomId) {
+    public void setRoomId(Long roomId) {
         this.roomId = roomId;
     }
 
